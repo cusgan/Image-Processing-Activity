@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace Image_Processing_Activity
 {
     public partial class Form1 : Form
@@ -75,89 +77,87 @@ namespace Image_Processing_Activity
 
         private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //processed = new Bitmap(loaded.Width, loaded.Height);
-
-            //// Lower Left: Basic Copy
-            //for (int x = 0; x < loaded.Width/2; x++)
-            //{
-            //    for (int y = loaded.Height / 2; y < loaded.Height; y++)
-            //    {
-            //        Color c = loaded.GetPixel(x, y);
-            //        processed.SetPixel(x, y, c);
-            //    }
-            //}
-
-            //// Upper Left: Inversion
-            //for (int x = 0; x < loaded.Width / 2; x++)
-            //{
-            //    for (int y = 0; y < loaded.Height / 2; y++)
-            //    {
-            //        Color c = loaded.GetPixel(x, y);
-            //        int r, g, b;
-            //        r = 255 - c.R;
-            //        g = 255 - c.G;
-            //        b = 255 - c.B;
-            //        Color nc = Color.FromArgb(255, r, g, b);
-            //        processed.SetPixel(x, y, nc);
-            //    }
-            //}
-
-            //// Upper Right: Grayscale
-            //for (int x = loaded.Width / 2; x < loaded.Width; x++)
-            //{
-            //    for (int y = 0; y < loaded.Height / 2; y++)
-            //    {
-            //        Color c = loaded.GetPixel(x, y);
-            //        int gray = (c.R + c.G + c.B) / 3;
-            //        Color nc = Color.FromArgb(255, gray, gray, gray);
-            //        processed.SetPixel(x, y, nc);
-            //    }
-            //}
-
-            //// Lower Right: Vertical Mirror
-            //for (int x = loaded.Width / 2; x < loaded.Width; x++)
-            //{
-            //    for (int y = loaded.Height / 2; y < loaded.Height; y++)
-            //    {
-            //        Color c = loaded.GetPixel(x, y);
-
-            //        int center = loaded.Height * 3 / 4;
-
-            //        processed.SetPixel(x, 2*center - y - 1, c);
-            //    }
-            //}
-            processed = new Bitmap(800, 600);
-
-            for (int x = 0; x < 800; x++)
+            Bitmap original = new Bitmap(loaded.Width, loaded.Height);
+            for (int x = 0; x < loaded.Width; x++)
             {
-                for (int y = 0; y < 600; y++)
+                for (int y = 0; y < loaded.Height; y++)
                 {
-                    Color c = loaded.GetPixel(x, y);
-                    Color cnew = c;
-
-                    if (x < 400 && y < 300)
-                    {           // upper left inversion
-                        cnew = Color.FromArgb(255, 255 - c.R, 255 - c.G, 255 - c.B);
-
-                    }
-                    else if (x >= 400 && y < 300)
-                    {   // upper right greyscale
-                        int avg = (c.R + c.G + c.B) / 3;
-                        cnew = Color.FromArgb(255, avg, avg, avg);
-
-                    }
-                    else if (x >= 400 && y >= 300)
-                    {   // lower right vertical mirror
-                        processed.SetPixel(x, 899 - y, c);
-                        continue;
-
-                    }
-
-                    processed.SetPixel(x, y, cnew);
+                    Color pixel = loaded.GetPixel(x, y);
+                    original.SetPixel(x, y, pixel);
                 }
             }
-
+            Bitmap temp = original;
+            original = loaded;
+            loaded = temp;
+            for (int x = 0; x < loaded.Width; x++)
+            {
+                for (int y = 0; y < loaded.Height; y++)
+                {
+                    Color sample = loaded.GetPixel(x, y);
+                    byte greydata = (byte)((sample.R + sample.G + sample.B) / 3);
+                    Color grey = Color.FromArgb(greydata, greydata, greydata);
+                    loaded.SetPixel(x, y, grey);
+                }
+            }
+            int[] histdata = new int[256];
+            for (int x = 0; x < loaded.Width; x++)
+            {
+                for (int y = 0; y < loaded.Height; y++)
+                {
+                    Color sample = loaded.GetPixel((int)x, (int)y);
+                    ++histdata[sample.R];
+                }
+            }
+            processed = new Bitmap(256, 800);
+            for (int x = 0; x < 256; x++)
+            {
+                for (int y = 0; y < 800; y++)
+                {
+                    processed.SetPixel(x, y, Color.White);
+                }
+            }
+            for (int x = 0; x < 256; x++)
+            {
+                for (int y = 0; y < Math.Min(histdata[x] / 5, processed.Height - 1); y++)
+                {
+                    processed.SetPixel(x, (processed.Height - 1) - y, Color.Black);
+                }
+            }
             pictureBox2.Image = processed;
+        }
+
+        private void sepiaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = new Bitmap(loaded.Width, loaded.Height);
+            Color pixel;
+            for (int x = 0; x < loaded.Width; x++)
+            {
+                for (int y = 0; y < loaded.Height; y++)
+                {
+                    pixel = loaded.GetPixel(x, y);
+                    int sr = (int)Math.Min(255, 0.40 * pixel.R + 0.77 * pixel.G + 0.19 * pixel.B);
+                    int sg = (int)Math.Min(255, 0.35 * pixel.R + 0.69 * pixel.G + 0.17 * pixel.B);
+                    int sb = (int)Math.Min(255, 0.27 * pixel.R + 0.53 * pixel.G + 0.13 * pixel.B);
+                    Color sepia = Color.FromArgb(sr, sg, sb);
+                    processed.SetPixel(x, y, sepia);
+                }
+            }
+            pictureBox2.Image = processed;
+        }
+
+        private void btnLoadBG_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLoadFG_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSubtract_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
