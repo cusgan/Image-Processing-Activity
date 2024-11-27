@@ -14,7 +14,7 @@ namespace Image_Processing_Activity
 
         private void dipToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void openImageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace Image_Processing_Activity
                     bg = opened_file;
                     pbBackground.Image = bg;
                     break;
-                case 2: 
+                case 2:
                     fg = opened_file;
                     pbForeground.Image = fg;
                     break;
@@ -182,19 +182,19 @@ namespace Image_Processing_Activity
             int avg = (green.R + green.G + green.B) / 3;
             processed = new Bitmap(fg.Width, fg.Height);
 
-            for (int x = 0 ; x < fg.Width; x++)
+            for (int x = 0; x < fg.Width; x++)
             {
-                for (int y = 0 ; y < fg.Height; y++)
+                for (int y = 0; y < fg.Height; y++)
                 {
                     Color fgpx = fg.GetPixel(x, y);
                     Color bgpx = bg.GetPixel(x, y);
 
-                    int grey = (fgpx.R + fgpx.G +  fgpx.B) / 3;
+                    int grey = (fgpx.R + fgpx.G + fgpx.B) / 3;
                     int subval = Math.Abs(grey - avg);
 
                     if (subval < threshold)
                     {
-                        processed.SetPixel(x, y, bgpx);                  
+                        processed.SetPixel(x, y, bgpx);
                     }
                     else
                     {
@@ -204,6 +204,41 @@ namespace Image_Processing_Activity
             }
 
             pbResult.Image = processed;
+        }
+
+        private void gaussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = (Bitmap)loaded.Clone();
+            ImageProcess2.BitmapFilter.GaussianBlur(processed, 4);
+            pictureBox2.Image = processed;
+        }
+
+        private void sharpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = (Bitmap)loaded.Clone();
+            ImageProcess2.BitmapFilter.Sharpen(processed, 11);
+            pictureBox2.Image = processed;
+        }
+
+        private void meanRemovalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = (Bitmap)loaded.Clone();
+            ImageProcess2.BitmapFilter.MeanRemoval(processed, 9);
+            pictureBox2.Image = processed;
+        }
+
+        private void embossToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = (Bitmap)loaded.Clone();
+            ImageProcess2.BitmapFilter.EmbossLaplacian(processed);
+            pictureBox2.Image = processed;
+        }
+
+        private void swirlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = (Bitmap)loaded.Clone();
+            ImageProcess2.BitmapFilter.Swirl(processed, 0.05, true);
+            pictureBox2.Image = processed;
         }
     }
 }

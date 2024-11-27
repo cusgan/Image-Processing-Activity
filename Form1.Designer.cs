@@ -38,33 +38,39 @@
             colorInversionToolStripMenuItem = new ToolStripMenuItem();
             histogramToolStripMenuItem = new ToolStripMenuItem();
             sepiaToolStripMenuItem = new ToolStripMenuItem();
+            convolutionToolStripMenuItem = new ToolStripMenuItem();
+            shrinkToolStripMenuItem = new ToolStripMenuItem();
+            gaussianBlurToolStripMenuItem = new ToolStripMenuItem();
+            sharpenToolStripMenuItem = new ToolStripMenuItem();
+            meanRemovalToolStripMenuItem = new ToolStripMenuItem();
+            embossToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
-            pbBackground = new PictureBox();
-            pbForeground = new PictureBox();
-            pbResult = new PictureBox();
-            btnLoadBG = new Button();
-            btnLoadFG = new Button();
             btnSubtract = new Button();
+            btnLoadFG = new Button();
+            btnLoadBG = new Button();
+            pbResult = new PictureBox();
+            pbForeground = new PictureBox();
+            pbBackground = new PictureBox();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbBackground).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pbForeground).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbResult).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbForeground).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbBackground).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, dipToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, dipToolStripMenuItem, convolutionToolStripMenuItem });
             menuStrip1.Location = new Point(3, 3);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 3, 0, 3);
@@ -82,14 +88,14 @@
             // openImageToolStripMenuItem
             // 
             openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            openImageToolStripMenuItem.Size = new Size(224, 26);
+            openImageToolStripMenuItem.Size = new Size(174, 26);
             openImageToolStripMenuItem.Text = "Open Image";
             openImageToolStripMenuItem.Click += openImageToolStripMenuItem_Click;
             // 
             // saveImageToolStripMenuItem
             // 
             saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
-            saveImageToolStripMenuItem.Size = new Size(224, 26);
+            saveImageToolStripMenuItem.Size = new Size(174, 26);
             saveImageToolStripMenuItem.Text = "Save Image";
             // 
             // dipToolStripMenuItem
@@ -103,37 +109,79 @@
             // basicCopyToolStripMenuItem
             // 
             basicCopyToolStripMenuItem.Name = "basicCopyToolStripMenuItem";
-            basicCopyToolStripMenuItem.Size = new Size(224, 26);
+            basicCopyToolStripMenuItem.Size = new Size(191, 26);
             basicCopyToolStripMenuItem.Text = "Basic Copy";
             basicCopyToolStripMenuItem.Click += basicCopyToolStripMenuItem_Click;
             // 
             // greyscaleToolStripMenuItem
             // 
             greyscaleToolStripMenuItem.Name = "greyscaleToolStripMenuItem";
-            greyscaleToolStripMenuItem.Size = new Size(224, 26);
+            greyscaleToolStripMenuItem.Size = new Size(191, 26);
             greyscaleToolStripMenuItem.Text = "Greyscale";
             greyscaleToolStripMenuItem.Click += greyscaleToolStripMenuItem_Click;
             // 
             // colorInversionToolStripMenuItem
             // 
             colorInversionToolStripMenuItem.Name = "colorInversionToolStripMenuItem";
-            colorInversionToolStripMenuItem.Size = new Size(224, 26);
+            colorInversionToolStripMenuItem.Size = new Size(191, 26);
             colorInversionToolStripMenuItem.Text = "Color Inversion";
             colorInversionToolStripMenuItem.Click += colorInversionToolStripMenuItem_Click;
             // 
             // histogramToolStripMenuItem
             // 
             histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
-            histogramToolStripMenuItem.Size = new Size(224, 26);
+            histogramToolStripMenuItem.Size = new Size(191, 26);
             histogramToolStripMenuItem.Text = "Histogram";
             histogramToolStripMenuItem.Click += histogramToolStripMenuItem_Click;
             // 
             // sepiaToolStripMenuItem
             // 
             sepiaToolStripMenuItem.Name = "sepiaToolStripMenuItem";
-            sepiaToolStripMenuItem.Size = new Size(224, 26);
+            sepiaToolStripMenuItem.Size = new Size(191, 26);
             sepiaToolStripMenuItem.Text = "Sepia";
             sepiaToolStripMenuItem.Click += sepiaToolStripMenuItem_Click;
+            // 
+            // convolutionToolStripMenuItem
+            // 
+            convolutionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { shrinkToolStripMenuItem, gaussianBlurToolStripMenuItem, sharpenToolStripMenuItem, meanRemovalToolStripMenuItem, embossToolStripMenuItem });
+            convolutionToolStripMenuItem.Name = "convolutionToolStripMenuItem";
+            convolutionToolStripMenuItem.Size = new Size(103, 24);
+            convolutionToolStripMenuItem.Text = "Convolution";
+            // 
+            // shrinkToolStripMenuItem
+            // 
+            shrinkToolStripMenuItem.Name = "shrinkToolStripMenuItem";
+            shrinkToolStripMenuItem.Size = new Size(224, 26);
+            shrinkToolStripMenuItem.Text = "Swirl";
+            shrinkToolStripMenuItem.Click += swirlToolStripMenuItem_Click;
+            // 
+            // gaussianBlurToolStripMenuItem
+            // 
+            gaussianBlurToolStripMenuItem.Name = "gaussianBlurToolStripMenuItem";
+            gaussianBlurToolStripMenuItem.Size = new Size(224, 26);
+            gaussianBlurToolStripMenuItem.Text = "Gaussian Blur";
+            gaussianBlurToolStripMenuItem.Click += gaussianBlurToolStripMenuItem_Click;
+            // 
+            // sharpenToolStripMenuItem
+            // 
+            sharpenToolStripMenuItem.Name = "sharpenToolStripMenuItem";
+            sharpenToolStripMenuItem.Size = new Size(224, 26);
+            sharpenToolStripMenuItem.Text = "Sharpen";
+            sharpenToolStripMenuItem.Click += sharpenToolStripMenuItem_Click;
+            // 
+            // meanRemovalToolStripMenuItem
+            // 
+            meanRemovalToolStripMenuItem.Name = "meanRemovalToolStripMenuItem";
+            meanRemovalToolStripMenuItem.Size = new Size(224, 26);
+            meanRemovalToolStripMenuItem.Text = "Mean Removal";
+            meanRemovalToolStripMenuItem.Click += meanRemovalToolStripMenuItem_Click;
+            // 
+            // embossToolStripMenuItem
+            // 
+            embossToolStripMenuItem.Name = "embossToolStripMenuItem";
+            embossToolStripMenuItem.Size = new Size(224, 26);
+            embossToolStripMenuItem.Text = "Emboss";
+            embossToolStripMenuItem.Click += embossToolStripMenuItem_Click;
             // 
             // openFileDialog1
             // 
@@ -199,42 +247,15 @@
             tabPage2.Text = "Green Screen";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // pbBackground
+            // btnSubtract
             // 
-            pbBackground.Location = new Point(6, 6);
-            pbBackground.Name = "pbBackground";
-            pbBackground.Size = new Size(266, 272);
-            pbBackground.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbBackground.TabIndex = 0;
-            pbBackground.TabStop = false;
-            // 
-            // pbForeground
-            // 
-            pbForeground.Location = new Point(278, 6);
-            pbForeground.Name = "pbForeground";
-            pbForeground.Size = new Size(266, 272);
-            pbForeground.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbForeground.TabIndex = 1;
-            pbForeground.TabStop = false;
-            // 
-            // pbResult
-            // 
-            pbResult.Location = new Point(550, 6);
-            pbResult.Name = "pbResult";
-            pbResult.Size = new Size(266, 272);
-            pbResult.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbResult.TabIndex = 2;
-            pbResult.TabStop = false;
-            // 
-            // btnLoadBG
-            // 
-            btnLoadBG.Location = new Point(65, 284);
-            btnLoadBG.Name = "btnLoadBG";
-            btnLoadBG.Size = new Size(159, 29);
-            btnLoadBG.TabIndex = 3;
-            btnLoadBG.Text = "Select Background";
-            btnLoadBG.UseVisualStyleBackColor = true;
-            btnLoadBG.Click += btnLoadBG_Click;
+            btnSubtract.Location = new Point(612, 284);
+            btnSubtract.Name = "btnSubtract";
+            btnSubtract.Size = new Size(159, 29);
+            btnSubtract.TabIndex = 5;
+            btnSubtract.Text = "Combine Images";
+            btnSubtract.UseVisualStyleBackColor = true;
+            btnSubtract.Click += btnSubtract_Click;
             // 
             // btnLoadFG
             // 
@@ -246,15 +267,42 @@
             btnLoadFG.UseVisualStyleBackColor = true;
             btnLoadFG.Click += btnLoadFG_Click;
             // 
-            // btnSubtract
+            // btnLoadBG
             // 
-            btnSubtract.Location = new Point(612, 284);
-            btnSubtract.Name = "btnSubtract";
-            btnSubtract.Size = new Size(159, 29);
-            btnSubtract.TabIndex = 5;
-            btnSubtract.Text = "Combine Images";
-            btnSubtract.UseVisualStyleBackColor = true;
-            btnSubtract.Click += btnSubtract_Click;
+            btnLoadBG.Location = new Point(65, 284);
+            btnLoadBG.Name = "btnLoadBG";
+            btnLoadBG.Size = new Size(159, 29);
+            btnLoadBG.TabIndex = 3;
+            btnLoadBG.Text = "Select Background";
+            btnLoadBG.UseVisualStyleBackColor = true;
+            btnLoadBG.Click += btnLoadBG_Click;
+            // 
+            // pbResult
+            // 
+            pbResult.Location = new Point(550, 6);
+            pbResult.Name = "pbResult";
+            pbResult.Size = new Size(266, 272);
+            pbResult.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbResult.TabIndex = 2;
+            pbResult.TabStop = false;
+            // 
+            // pbForeground
+            // 
+            pbForeground.Location = new Point(278, 6);
+            pbForeground.Name = "pbForeground";
+            pbForeground.Size = new Size(266, 272);
+            pbForeground.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbForeground.TabIndex = 1;
+            pbForeground.TabStop = false;
+            // 
+            // pbBackground
+            // 
+            pbBackground.Location = new Point(6, 6);
+            pbBackground.Name = "pbBackground";
+            pbBackground.Size = new Size(266, 272);
+            pbBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbBackground.TabIndex = 0;
+            pbBackground.TabStop = false;
             // 
             // Form1
             // 
@@ -274,9 +322,9 @@
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pbBackground).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pbForeground).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbResult).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbForeground).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbBackground).EndInit();
             ResumeLayout(false);
         }
 
@@ -304,5 +352,11 @@
         private PictureBox pbBackground;
         private Button btnSubtract;
         private Button btnLoadFG;
+        private ToolStripMenuItem convolutionToolStripMenuItem;
+        private ToolStripMenuItem shrinkToolStripMenuItem;
+        private ToolStripMenuItem gaussianBlurToolStripMenuItem;
+        private ToolStripMenuItem sharpenToolStripMenuItem;
+        private ToolStripMenuItem meanRemovalToolStripMenuItem;
+        private ToolStripMenuItem embossToolStripMenuItem;
     }
 }
