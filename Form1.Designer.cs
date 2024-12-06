@@ -44,6 +44,9 @@
             sharpenToolStripMenuItem = new ToolStripMenuItem();
             meanRemovalToolStripMenuItem = new ToolStripMenuItem();
             embossToolStripMenuItem = new ToolStripMenuItem();
+            cameraToolStripMenuItem = new ToolStripMenuItem();
+            enableToolStripMenuItem = new ToolStripMenuItem();
+            disableToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
@@ -56,6 +59,10 @@
             pbResult = new PictureBox();
             pbForeground = new PictureBox();
             pbBackground = new PictureBox();
+            tabPage3 = new TabPage();
+            pbCoins = new PictureBox();
+            btnReadCoins = new Button();
+            lblCoinsOutput = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -65,12 +72,14 @@
             ((System.ComponentModel.ISupportInitialize)pbResult).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForeground).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbBackground).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbCoins).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, dipToolStripMenuItem, convolutionToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, dipToolStripMenuItem, convolutionToolStripMenuItem, cameraToolStripMenuItem });
             menuStrip1.Location = new Point(3, 3);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 3, 0, 3);
@@ -151,37 +160,56 @@
             // shrinkToolStripMenuItem
             // 
             shrinkToolStripMenuItem.Name = "shrinkToolStripMenuItem";
-            shrinkToolStripMenuItem.Size = new Size(224, 26);
+            shrinkToolStripMenuItem.Size = new Size(191, 26);
             shrinkToolStripMenuItem.Text = "Swirl";
             shrinkToolStripMenuItem.Click += swirlToolStripMenuItem_Click;
             // 
             // gaussianBlurToolStripMenuItem
             // 
             gaussianBlurToolStripMenuItem.Name = "gaussianBlurToolStripMenuItem";
-            gaussianBlurToolStripMenuItem.Size = new Size(224, 26);
+            gaussianBlurToolStripMenuItem.Size = new Size(191, 26);
             gaussianBlurToolStripMenuItem.Text = "Gaussian Blur";
             gaussianBlurToolStripMenuItem.Click += gaussianBlurToolStripMenuItem_Click;
             // 
             // sharpenToolStripMenuItem
             // 
             sharpenToolStripMenuItem.Name = "sharpenToolStripMenuItem";
-            sharpenToolStripMenuItem.Size = new Size(224, 26);
+            sharpenToolStripMenuItem.Size = new Size(191, 26);
             sharpenToolStripMenuItem.Text = "Sharpen";
             sharpenToolStripMenuItem.Click += sharpenToolStripMenuItem_Click;
             // 
             // meanRemovalToolStripMenuItem
             // 
             meanRemovalToolStripMenuItem.Name = "meanRemovalToolStripMenuItem";
-            meanRemovalToolStripMenuItem.Size = new Size(224, 26);
+            meanRemovalToolStripMenuItem.Size = new Size(191, 26);
             meanRemovalToolStripMenuItem.Text = "Mean Removal";
             meanRemovalToolStripMenuItem.Click += meanRemovalToolStripMenuItem_Click;
             // 
             // embossToolStripMenuItem
             // 
             embossToolStripMenuItem.Name = "embossToolStripMenuItem";
-            embossToolStripMenuItem.Size = new Size(224, 26);
+            embossToolStripMenuItem.Size = new Size(191, 26);
             embossToolStripMenuItem.Text = "Emboss";
             embossToolStripMenuItem.Click += embossToolStripMenuItem_Click;
+            // 
+            // cameraToolStripMenuItem
+            // 
+            cameraToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { enableToolStripMenuItem, disableToolStripMenuItem });
+            cameraToolStripMenuItem.Name = "cameraToolStripMenuItem";
+            cameraToolStripMenuItem.Size = new Size(74, 24);
+            cameraToolStripMenuItem.Text = "Camera";
+            // 
+            // enableToolStripMenuItem
+            // 
+            enableToolStripMenuItem.Name = "enableToolStripMenuItem";
+            enableToolStripMenuItem.Size = new Size(142, 26);
+            enableToolStripMenuItem.Text = "Enable";
+            // 
+            // disableToolStripMenuItem
+            // 
+            disableToolStripMenuItem.Name = "disableToolStripMenuItem";
+            disableToolStripMenuItem.Size = new Size(142, 26);
+            disableToolStripMenuItem.Text = "Disable";
             // 
             // openFileDialog1
             // 
@@ -212,6 +240,7 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -249,7 +278,7 @@
             // 
             // btnSubtract
             // 
-            btnSubtract.Location = new Point(612, 284);
+            btnSubtract.Location = new Point(637, 315);
             btnSubtract.Name = "btnSubtract";
             btnSubtract.Size = new Size(159, 29);
             btnSubtract.TabIndex = 5;
@@ -259,7 +288,7 @@
             // 
             // btnLoadFG
             // 
-            btnLoadFG.Location = new Point(334, 284);
+            btnLoadFG.Location = new Point(367, 315);
             btnLoadFG.Name = "btnLoadFG";
             btnLoadFG.Size = new Size(159, 29);
             btnLoadFG.TabIndex = 4;
@@ -269,7 +298,7 @@
             // 
             // btnLoadBG
             // 
-            btnLoadBG.Location = new Point(65, 284);
+            btnLoadBG.Location = new Point(89, 315);
             btnLoadBG.Name = "btnLoadBG";
             btnLoadBG.Size = new Size(159, 29);
             btnLoadBG.TabIndex = 3;
@@ -279,7 +308,7 @@
             // 
             // pbResult
             // 
-            pbResult.Location = new Point(550, 6);
+            pbResult.Location = new Point(587, 37);
             pbResult.Name = "pbResult";
             pbResult.Size = new Size(266, 272);
             pbResult.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -288,7 +317,7 @@
             // 
             // pbForeground
             // 
-            pbForeground.Location = new Point(278, 6);
+            pbForeground.Location = new Point(315, 37);
             pbForeground.Name = "pbForeground";
             pbForeground.Size = new Size(266, 272);
             pbForeground.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -297,23 +326,63 @@
             // 
             // pbBackground
             // 
-            pbBackground.Location = new Point(6, 6);
+            pbBackground.Location = new Point(43, 37);
             pbBackground.Name = "pbBackground";
             pbBackground.Size = new Size(266, 272);
             pbBackground.SizeMode = PictureBoxSizeMode.StretchImage;
             pbBackground.TabIndex = 0;
             pbBackground.TabStop = false;
             // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(lblCoinsOutput);
+            tabPage3.Controls.Add(btnReadCoins);
+            tabPage3.Controls.Add(pbCoins);
+            tabPage3.Location = new Point(4, 29);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(892, 447);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Coins";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // pbCoins
+            // 
+            pbCoins.Image = Properties.Resources.Coins;
+            pbCoins.Location = new Point(44, 30);
+            pbCoins.Name = "pbCoins";
+            pbCoins.Size = new Size(338, 396);
+            pbCoins.TabIndex = 0;
+            pbCoins.TabStop = false;
+            // 
+            // btnReadCoins
+            // 
+            btnReadCoins.Location = new Point(426, 30);
+            btnReadCoins.Name = "btnReadCoins";
+            btnReadCoins.Size = new Size(420, 46);
+            btnReadCoins.TabIndex = 1;
+            btnReadCoins.Text = "Read Coins";
+            btnReadCoins.UseVisualStyleBackColor = true;
+            btnReadCoins.Click += btnReadCoins_Click;
+            // 
+            // lblCoinsOutput
+            // 
+            lblCoinsOutput.AutoSize = true;
+            lblCoinsOutput.Location = new Point(426, 97);
+            lblCoinsOutput.Name = "lblCoinsOutput";
+            lblCoinsOutput.Size = new Size(176, 20);
+            lblCoinsOutput.TabIndex = 2;
+            lblCoinsOutput.Text = "(Output will display here)";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(921, 504);
             Controls.Add(tabControl1);
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Image Processing Activity";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -325,6 +394,9 @@
             ((System.ComponentModel.ISupportInitialize)pbResult).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbForeground).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbBackground).EndInit();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbCoins).EndInit();
             ResumeLayout(false);
         }
 
@@ -358,5 +430,12 @@
         private ToolStripMenuItem sharpenToolStripMenuItem;
         private ToolStripMenuItem meanRemovalToolStripMenuItem;
         private ToolStripMenuItem embossToolStripMenuItem;
+        private TabPage tabPage3;
+        private ToolStripMenuItem cameraToolStripMenuItem;
+        private ToolStripMenuItem enableToolStripMenuItem;
+        private ToolStripMenuItem disableToolStripMenuItem;
+        private PictureBox pbCoins;
+        private Label lblCoinsOutput;
+        private Button btnReadCoins;
     }
 }
